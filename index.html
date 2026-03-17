@@ -83,79 +83,7 @@
 <hr class="divider">
 
 <!-- OFFER SECTION -->
-<div id="offer">
-  <div class="offer-inner">
-    <div class="fade-up">
-      <span class="offer-badge">Featured Drop — Limited Stock</span>
-      <h2 class="offer-title">
-        BAFANG M620<br>ULTRA MID-DRIVE
-        <span class="price-tag">$649</span>
-      </h2>
-      <p class="offer-desc">The most powerful mid-drive motor in its class. 1000W continuous, 160Nm torque. Direct replacement for most full-suspension frames. This is the upgrade your build has been waiting for.</p>
-      <div class="offer-specs">
-        <div class="spec-item">
-          <div class="spec-label">Rated Power</div>
-          <div class="spec-value">1000W</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Peak Torque</div>
-          <div class="spec-value">160 Nm</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Voltage</div>
-          <div class="spec-value">48V</div>
-        </div>
-        <div class="spec-item">
-          <div class="spec-label">Weight</div>
-          <div class="spec-value">4.2 kg</div>
-        </div>
-      </div>
-      <div class="hero-cta-row">
-        <button class="btn-primary" onclick="addToCart('Bafang M620 Ultra', 649, '⚙️')">Add to Cart — $649</button>
-        <a href="#parts" class="btn-ghost">See All Motors</a>
-      </div>
-    </div>
-    <div class="offer-visual fade-up">
-      <div class="offer-visual-bg"></div>
-      <div class="offer-visual-accent"></div>
-      <div class="offer-visual-img">
-        <svg class="motor-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <!-- Motor body -->
-          <circle cx="150" cy="150" r="110" fill="none" stroke="#2a2a2a" stroke-width="2"/>
-          <circle cx="150" cy="150" r="90" fill="#1c1c1c" stroke="#333" stroke-width="1.5"/>
-          <!-- Rotor -->
-          <circle cx="150" cy="150" r="65" fill="#161616" stroke="#3A8EFF" stroke-width="1"/>
-          <!-- Stator fins -->
-          <g stroke="#333" stroke-width="1.5" fill="none">
-            <line x1="150" y1="60" x2="150" y2="85"/>
-            <line x1="150" y1="215" x2="150" y2="240"/>
-            <line x1="60" y1="150" x2="85" y2="150"/>
-            <line x1="215" y1="150" x2="240" y2="150"/>
-            <line x1="87" y1="87" x2="105" y2="105"/>
-            <line x1="213" y1="87" x2="195" y2="105"/>
-            <line x1="87" y1="213" x2="105" y2="195"/>
-            <line x1="213" y1="213" x2="195" y2="195"/>
-          </g>
-          <!-- Inner detail -->
-          <circle cx="150" cy="150" r="40" fill="#0f0f0f" stroke="#2a2a2a" stroke-width="1"/>
-          <circle cx="150" cy="150" r="20" fill="#161616" stroke="#3A8EFF" stroke-width="1.5"/>
-          <circle cx="150" cy="150" r="8" fill="#3A8EFF"/>
-          <!-- Accent arcs -->
-          <path d="M 150 90 A 60 60 0 0 1 210 150" fill="none" stroke="#3A8EFF" stroke-width="2" stroke-linecap="round"/>
-          <path d="M 90 150 A 60 60 0 0 1 150 210" fill="none" stroke="#3A8EFF" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
-          <!-- Bolts -->
-          <circle cx="150" cy="68" r="5" fill="#1c1c1c" stroke="#444" stroke-width="1"/>
-          <circle cx="232" cy="150" r="5" fill="#1c1c1c" stroke="#444" stroke-width="1"/>
-          <circle cx="150" cy="232" r="5" fill="#1c1c1c" stroke="#444" stroke-width="1"/>
-          <circle cx="68" cy="150" r="5" fill="#1c1c1c" stroke="#444" stroke-width="1"/>
-          <!-- Glow effect -->
-          <circle cx="150" cy="150" r="25" fill="none" stroke="#3A8EFF" stroke-width="0.5" opacity="0.3"/>
-        </svg>
-      </div>
-      <div class="offer-tag">SAVE $80</div>
-    </div>
-  </div>
-</div>
+<div id="offer"></div>
 
 <!-- PARTS -->
 <section id="parts">
@@ -824,7 +752,50 @@ function observeFadeUps() {
   document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 }
 
+function renderOfferSection(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+  const offerDiv = document.getElementById('offer');
+  const savings = product.orig ? product.orig - product.price : 0;
+  const titleParts = product.name.split(' ');
+  const titleLines = titleParts.slice(0, 2).join(' ') + '<br>' + titleParts.slice(2).join(' ');
+  offerDiv.innerHTML = `
+    <div class="offer-inner">
+      <div class="fade-up">
+        <span class="offer-badge">Featured Drop — Limited Stock</span>
+        <h2 class="offer-title">
+          ${titleLines}
+          <span class="price-tag">$${product.price}</span>
+        </h2>
+        <p class="offer-desc">${product.desc}</p>
+        <div class="offer-specs">
+          ${product.specs.map(s => `
+            <div class="spec-item">
+              <div class="spec-label">${s.l}</div>
+              <div class="spec-value">${s.v}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="hero-cta-row">
+          <button class="btn-primary" onclick="addToCart('${product.name}', ${product.price}, '${product.emoji}')">Add to Cart — $${product.price}</button>
+          <a href="#parts" class="btn-ghost">See All ${product.cat.charAt(0).toUpperCase() + product.cat.slice(1)}</a>
+        </div>
+      </div>
+      <div class="offer-visual fade-up">
+        <div class="offer-visual-bg"></div>
+        <div class="offer-visual-accent"></div>
+        <div class="offer-visual-img">
+          <img src="product_${product.id}.webp" alt="${product.name}" onerror="this.style.display='none'; this.parentElement.appendChild(Object.assign(document.createElement('div'), {textContent: '${product.emoji}', style: 'display:flex; align-items:center; justify-content:center; width:100%; height:100%; font-size:80px;'}));"/>
+        </div>
+        ${savings ? `<div class="offer-tag">SAVE $${savings}</div>` : ''}
+      </div>
+    </div>
+  `;
+  observeFadeUps();
+}
+
 // ── INIT ──
+renderOfferSection(1);
 renderParts();
 updateCartUI();
 observeFadeUps();
