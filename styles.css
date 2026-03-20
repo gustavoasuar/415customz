@@ -1310,7 +1310,10 @@
 
   /* ── MOBILE ── */
   @media (max-width: 900px) {
+    body { font-size: 16px; }
+
     nav { padding: 0 20px; }
+    .nav-logo { font-size: 32px; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
 
@@ -1320,7 +1323,10 @@
     .hero-inner { padding: 60px 20px; grid-template-columns: 1fr; }
     .hero-logo-col { grid-row: auto; padding: 32px 24px; margin-bottom: 32px; max-width: 240px; }
     .hero-text-col { grid-column: 1; }
+    .hero-title { font-size: clamp(48px, 10vw, 120px); }
+    .hero-subtitle { font-size: 15px; }
     .hero-stats { gap: 24px; margin-top: 48px; }
+    .stat-num { font-size: 36px; }
 
     .offer-inner {
       grid-template-columns: 1fr;
@@ -1328,7 +1334,18 @@
       gap: 40px;
     }
 
+    .offer-title { font-size: clamp(40px, 8vw, 64px); }
+    .offer-desc { font-size: 15px; }
+
     .offer-visual { max-width: 100%; }
+
+    .section-title { font-size: clamp(32px, 8vw, 56px); }
+
+    .product-name { font-size: 20px; }
+    .product-desc { font-size: 13px; }
+    .product-price { font-size: 16px; }
+
+    .btn-primary, .btn-ghost { font-size: 13px; padding: 16px 36px; }
 
     .cart-inner {
       grid-template-columns: 1fr;
