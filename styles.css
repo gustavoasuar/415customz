@@ -305,7 +305,7 @@
 
   .btn-ghost {
     background: transparent;
-    color: var(--text);
+    color: #fff;
     font-family: var(--font-mono);
     font-size: 12px;
     letter-spacing: 3px;
@@ -318,7 +318,8 @@
     transition: all 0.2s;
   }
 
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-ghost { border-color: rgba(255,255,255,0.4); color: #fff; }
+  .btn-ghost:hover { border-color: #fff; color: #fff; }
 
   .hero-stats {
     display: flex;
@@ -1321,12 +1322,12 @@
     section { padding: 64px 20px; }
     .divider { margin: 0 20px; }
 
-    .hero-inner { padding: 60px 20px; grid-template-columns: 1fr; width: 100%; }
-    .hero-logo-col { grid-row: auto; padding: 32px 24px; margin-bottom: 32px; max-width: 100%; }
-    .hero-text-col { grid-column: 1; }
+    .hero-inner { padding: 60px 20px; grid-template-columns: 1fr; width: 100%; display: flex; flex-direction: column; }
+    .hero-logo-col { order: 2; padding: 32px 24px; margin-top: 32px; max-width: 100%; }
+    .hero-text-col { order: 1; }
     .hero-title { font-size: clamp(48px, 10vw, 120px); }
     .hero-subtitle { font-size: 15px; }
-    .hero-stats { gap: 24px; margin-top: 48px; }
+    .hero-stats { order: 3; gap: 24px; margin-top: 48px; }
     .stat-num { font-size: 36px; }
 
     .offer-inner {
